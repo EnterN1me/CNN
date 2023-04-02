@@ -1,9 +1,5 @@
-import math
-import time
-
 import matplotlib.pyplot as plt
 import numpy as np
-import cv2
 import convolution
 
 

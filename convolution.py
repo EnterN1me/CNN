@@ -97,8 +97,9 @@ def pooling(image, parametre):
             # On balaye la matrice image sur la surface du kernel actuel pour obtenir la valeur du pixel final
             for m in range(parametre):
                 for n in range(parametre):
-                    #si on est hors des frontiere, on prend le max des case restant, donc valeur ne change pas et il ne se passe rien
-                    try :
+                    # si on est hors des frontiere, on prend le max des case restant, donc valeur ne change pas et il
+                    # ne se passe rien
+                    try:
                         valeur = max(valeur, image[x * parametre + m][y * parametre + n])
                     except IndexError:
                         pass
@@ -151,4 +152,3 @@ def plot_kernel(name):
     plt.imshow(Kernel_3x3[name])
     plt.axis('off')
     plt.show()
-
