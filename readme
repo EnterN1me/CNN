@@ -1,0 +1,15 @@
+# Convolutional Neural Network #
+
+# How to setup ?
+
+Change the path_to_dataset values in the Data.py ( for examples fr"C:\Users\YourName\Documents\CNN\Dataset" )
+instal dependancies :
+    -cv2 (pip install opencv-python)
+    -numpy
+    -tqdm
+
+use python 3.11 or above
+
+# How to Use ?
+
+you need to create the model with training methode, it need in parametre number of train and number of test

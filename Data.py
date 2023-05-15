@@ -1,36 +1,60 @@
+import os
+import sys
+
 import cv2
 import numpy as np
 
+path_to_dataset = fr"C:\Users\Micka\Documents\CNN\Dataset"
 
-class Dataset:
 
-    def __init__(self,path):
-        self.path = path
-        self.actual = 1
+def data_gestion():
+    for plant in ["Alstonia Scholaris (P2)", "Arjun (P1)", "Bael (P4)", "Basil (P8)", "Chinar (P11)", "Gauva (P3)",
+                  "Jamun (P5)", "Jatropha (P6)", "Lemon (P10)", "Mango (P0)", "Pomegranate (P9)",
+                  "Pongamia Pinnata (P7)"]:
 
-    def get_photo(self,name,extension):
-        image = cv2.imread(self.path+"\\"+name+"."+extension,0)
-        image = cv2.resize(image,(96,96))
-        image = np.asarray(image)
-        return image
+        for state in ["diseased", "healthy"]:
+            try:
+                os.chdir(path_to_dataset + fr"\plant\{plant}\{state}")
+                for name in os.listdir():
+                    image = cv2.imread(name)
+                    image = cv2.resize(image, (256, 256))
+                    cv2.imwrite(name, image)
+            except FileNotFoundError as err:
+                print(err, file=sys.stderr)
+            print(plant, state, "finish")
 
-    def get_new_dataset(self,number,name,extension,value):
 
-        dataset = []
+def dataset_tolist():
+    result = []
 
-        for i in range(number):
-            current = []
-            image = self.get_photo(name+"_"+str(self.actual),extension)
-            self.actual += 1
-            current.append(image);current.append(value)
+    for plant in ["Alstonia Scholaris (P2)", "Arjun (P1)", "Bael (P4)", "Basil (P8)", "Chinar (P11)", "Gauva (P3)",
+                  "Jamun (P5)", "Jatropha (P6)", "Lemon (P10)", "Mango (P0)", "Pomegranate (P9)",
+                  "Pongamia Pinnata (P7)"]:
 
-            dataset.append(current)
+        for state in ["diseased", "healthy"]:
+            try:
+                os.chdir(path_to_dataset + fr"\plant\{plant}\{state}")
+                for name in os.listdir():
+                    image = cv2.imread(name, 0)
+                    image = cv2.resize(image, (96, 96))
+                    result.append([image, (1 if state == "healthy" else -1)])
+            except FileNotFoundError as err:
+                print(err, file=sys.stderr)
+            print(plant, state, "finish")
 
-        return dataset
+    return result
 
-    def add_feature_to_dataset(self,dataset,feature):
 
-        for data in dataset:
-            data[0] = feature.execute(data[0])
+# data_gestion()
 
-        return dataset
+def pizza_data_tolist():
+    result = []
+
+    for current in ["Pizza", "Avion"]:
+        os.chdir(path_to_dataset + fr"\96\{current}")
+        for name in os.listdir():
+            image = cv2.imread(name, 0)
+            image = cv2.resize(image, (96, 96))
+            result.append([image, (1 if current == "Pizza" else -1)])
+
+    return result
